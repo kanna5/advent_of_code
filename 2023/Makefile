@@ -1,5 +1,5 @@
-build: generate .WAIT lint
-	go build
+build: lint
+	go build -v -trimpath -ldflags='-s -w'
 
 lint:
 	golangci-lint run ./...
@@ -12,7 +12,11 @@ solution_dirs:
 generate:
 	go generate
 
+fmt:
+	go fmt ./...
+
 clean:
 	rm -f 2023
+	rm -f ./*.{png,svg,dot}
 
-.PHONY: build lint solution_dirs generate clean
+.PHONY: build lint solution_dirs generate fmt clean 

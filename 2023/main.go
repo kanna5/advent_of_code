@@ -1,6 +1,6 @@
 package main
 
-//go:generate go run imports_gen.go
+//go:generate go run gen_tpls.go
 
 import (
 	"flag"
@@ -80,7 +80,7 @@ func main() {
 	solver.WithInput(input_stream)
 
 	var result string
-	switch day {
+	switch part {
 	case 1:
 		result, err = solver.SolvePart1()
 	case 2:
