@@ -4,19 +4,17 @@ build: lint
 lint:
 	golangci-lint run ./...
 
-solution_dirs:
-	for i in $$(seq 25); do \
-		mkdir -pv "solutions/day$$(printf "%02d" "$$i")"; \
-	done
-
 generate:
 	go generate
 
 fmt:
 	go fmt ./...
 
+input:
+	bash ../scripts/get_input.sh
+
 clean:
 	rm -f 2023
 	rm -f ./*.{png,svg,dot}
 
-.PHONY: build lint solution_dirs generate fmt clean 
+.PHONY: build lint generate fmt input clean 

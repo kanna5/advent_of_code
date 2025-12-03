@@ -1,7 +1,10 @@
 build:
 	cargo build --release
 
+input:
+	bash ../scripts/get_input.sh
+
 clean:
 	rm -r target
 
-.PHONY: build clean
+.PHONY: build input clean
