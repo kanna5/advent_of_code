@@ -19,9 +19,8 @@ func (s *sol) SolvePart2() (string, error) {
 	panic("unimplemented")
 }
 
-func (s *sol) WithInput(i io.Reader) solutions.Solver {
+func (s *sol) WithInput(i io.Reader) {
 	s.input = i
-	return s
 }
 
 func init() {

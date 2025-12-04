@@ -98,9 +98,8 @@ func (s *sol) SolvePart2() (string, error) {
 	return strconv.FormatInt(int64(count), 10), nil
 }
 
-func (s *sol) WithInput(i io.Reader) solutions.Solver {
+func (s *sol) WithInput(i io.Reader) {
 	s.input = i
-	return s
 }
 
 func init() {

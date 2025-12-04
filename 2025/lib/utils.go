@@ -11,13 +11,9 @@ import (
 	"golang.org/x/exp/constraints"
 )
 
-type Number interface {
-	constraints.Integer | constraints.Float
-}
-
 func StrToIntSlice[T int | int64](str string) ([]T, error) {
 	fields := strings.FieldsFunc(str, func(r rune) bool {
-		return slices.Contains([]rune(" ,:"), r)
+		return slices.Contains([]rune(" ,:-"), r)
 	})
 	ret := make([]T, 0, len(fields))
 	for _, n := range fields {

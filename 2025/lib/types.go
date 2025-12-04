@@ -1,13 +1,23 @@
 package lib
 
-type Set[T comparable] map[T]struct{}
+import "golang.org/x/exp/constraints"
 
-func (s Set[T]) Add(elem T) {
-	s[elem] = struct{}{}
+type Number interface {
+	constraints.Integer | constraints.Float
 }
 
-func (s Set[T]) Del(elem T) {
-	delete(s, elem)
+type Set[T comparable] map[T]struct{}
+
+func (s Set[T]) Add(elems ...T) {
+	for i := range elems {
+		s[elems[i]] = struct{}{}
+	}
+}
+
+func (s Set[T]) Del(elems ...T) {
+	for i := range elems {
+		delete(s, elems[i])
+	}
 }
 
 func (s Set[T]) Has(elem T) bool {
