@@ -14,3 +14,7 @@ import (
 	_ "github.com/kanna5/advent_of_code/2025/solutions/day11"
 	_ "github.com/kanna5/advent_of_code/2025/solutions/day12"
 )
+
+import (
+	_ "github.com/k0kubun/pp/v3" // pretty printing
+)

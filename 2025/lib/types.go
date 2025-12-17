@@ -25,6 +25,14 @@ func (s Set[T]) Has(elem T) bool {
 	return ok
 }
 
+func (s Set[T]) ToSlice() []T {
+	r := make([]T, 0, len(s))
+	for i := range s {
+		r = append(r, i)
+	}
+	return r
+}
+
 func NewSet[T comparable](items ...T) Set[T] {
 	ret := make(Set[T], len(items))
 	for i := range items {

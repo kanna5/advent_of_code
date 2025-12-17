@@ -17,7 +17,7 @@ func StrToIntSlice[T int | int64](str string) ([]T, error) {
 	})
 	ret := make([]T, 0, len(fields))
 	for _, n := range fields {
-		i, err := strconv.ParseInt(n, 10, 64)
+		i, err := strconv.ParseInt(n, 10, strconv.IntSize)
 		if err != nil {
 			return nil, fmt.Errorf("invalid number %v", n)
 		}
@@ -70,4 +70,12 @@ func LcmSeq[T constraints.Integer](nums []T) T {
 		a, b := nums[0], LcmSeq(nums[1:])
 		return Abs(a) * Abs(b) / Gcd(a, b)
 	}
+}
+
+func Sum[T Number](nums ...T) T {
+	var sum T
+	for _, n := range nums {
+		sum += n
+	}
+	return sum
 }
