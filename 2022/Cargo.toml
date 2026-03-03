@@ -1,0 +1,12 @@
+[package]
+name = "aoc2022"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anyhow = "1.0.102"
+thiserror = "2.0.18"
+
+[profile.release]
+strip = true
+lto = true
