@@ -80,3 +80,10 @@ impl Options {
         }
     }
 }
+
+#[macro_export]
+macro_rules! answer {
+    ($x:expr) => {
+        Ok(($x).to_string())
+    };
+}
