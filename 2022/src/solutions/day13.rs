@@ -1,9 +1,9 @@
 //! Implements a solution for https://adventofcode.com/2022/day/13
 
-use anyhow::{Context, Ok, bail};
+use std::{cmp::Ordering, io::BufRead};
 
 use crate::{answer, solutions::Solution};
-use std::{cmp::Ordering, io::BufRead};
+use anyhow::{Context, Ok, bail};
 
 pub struct Day13;
 

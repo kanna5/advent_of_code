@@ -1,4 +1,6 @@
-use std::{collections::HashMap, io::BufRead, str::FromStr};
+use std::{collections::HashMap, error::Error, io::BufRead, str::FromStr};
+
+use anyhow::Context;
 
 pub mod day01;
 pub mod day02;
@@ -35,7 +37,7 @@ pub trait Solution<R: BufRead = Box<dyn BufRead>> {
 #[error("Invalid input: \"{0}\"")]
 pub struct InvalidInput(String);
 
-pub fn get_solution(day: u8, _options: Options) -> Option<Box<dyn Solution>> {
+pub fn get_solution(day: u8, options: Options) -> Option<Box<dyn Solution>> {
     match day {
         1 => Some(Box::new(day01::Day01)),
         2 => Some(Box::new(day02::Day02)),
@@ -50,8 +52,8 @@ pub fn get_solution(day: u8, _options: Options) -> Option<Box<dyn Solution>> {
         11 => Some(Box::new(day11::Day11)),
         12 => Some(Box::new(day12::Day12)),
         13 => Some(Box::new(day13::Day13)),
-        14 => Some(Box::new(day14::Day14)),
-        15 => Some(Box::new(day15::Day15)),
+        14 => Some(Box::new(day14::Day14 { opts: options })),
+        15 => Some(Box::new(day15::Day15 { opts: options })),
         16 => Some(Box::new(day16::Day16)),
         17 => Some(Box::new(day17::Day17)),
         18 => Some(Box::new(day18::Day18)),
@@ -73,9 +75,14 @@ impl Options {
         Self(opts)
     }
 
-    pub fn try_get<F: FromStr>(&self, name: &str, default: F) -> Result<F, <F as FromStr>::Err> {
+    pub fn try_get<F: FromStr>(&self, name: &str, default: F) -> anyhow::Result<F>
+    where
+        F::Err: Error + Send + Sync + 'static,
+    {
         match self.0.get(name) {
-            Some(v) => v.parse(),
+            Some(v) => v
+                .parse()
+                .with_context(|| format!("cannot parse option {:?}", name)),
             None => Ok(default),
         }
     }
